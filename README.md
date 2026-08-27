@@ -149,10 +149,16 @@ If the application requires an API key, create a `.env` file or configure the re
 Do not commit API keys or other secrets to the repository.
 
 ### Run the application
+## Running the Application
+
+After installing the dependencies, start GrowMate with:
 
 ```bash
-streamlit run app.py
+streamlit run app/Home.py
 ```
+
+Streamlit will start a local development server and provide a URL that can be opened in a web browser.
+
 
 ## Project Objectives
 
