@@ -1,7 +1,33 @@
 @"
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
 venv/
 .venv/
-__pycache__/
-*.pyc
+env/
+
+# Environment variables and secrets
 .env
+.env.*
+!.env.example
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
 "@ | Set-Content .gitignore
