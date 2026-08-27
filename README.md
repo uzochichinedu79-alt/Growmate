@@ -89,16 +89,25 @@ Transfer learning was selected to leverage a pretrained convolutional neural net
 | OpenWeatherMap API | Weather and environmental data                          |
 
 ## Project Structure
+## Project Structure
 
 ```text
 Growmate/
-├── app.py
-├── requirements.txt
-├── README.md
-└── ...
+├── .streamlit/          # Streamlit configuration
+├── app/                 # Application interface and application logic
+├── data/                # Dataset and data assets
+├── models/              # Trained machine learning models
+├── results/             # Model outputs and evaluation results
+├── dataset_figures.py   # Dataset visualization utilities
+├── evaluate_model.py    # Model evaluation
+├── prepare_data.py      # Data preprocessing and preparation
+├── train_model.py       # Model training
+├── run.py               # Application entry point
+├── requirements.txt     # Python dependencies
+├── .gitignore
+├── LICENSE
+└── README.md
 ```
-
-The repository structure may evolve as additional functionality and improvements are introduced.
 
 ## Installation
 
