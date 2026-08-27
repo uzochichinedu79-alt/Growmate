@@ -1,119 +1,178 @@
-# 🌱 GrowMate
-### *Know your soil. Grow your future.*
+# GrowMate
 
-AI-powered soil analysis and smart cultivation planning for smallholder
-farmers in West Africa. Final Year Project — Landmark University, Omu-Aran.
+## AI-Powered Soil Analysis and Crop Recommendation
 
----
+GrowMate is an AI-powered agriculture application that uses computer vision and environmental data to support soil analysis and crop selection.
 
-## What GrowMate does
+The application analyzes an image of soil, classifies its texture using a machine learning model, and combines the result with environmental information to provide agricultural recommendations.
 
-Upload a soil photo → get instant soil texture classification, NPK
-nutrient estimates, ranked crop recommendations based on live weather,
-and a 12-week cultivation calendar you can export as PDF or CSV.
+## Overview
 
----
+GrowMate was developed to explore how machine learning can be applied to practical agricultural decision-making.
 
-## Project structure
+The core machine learning component uses transfer learning with MobileNetV2 to classify soil texture into three categories:
 
+* Sandy
+* Clay
+* Loamy
+
+The application also incorporates weather data to provide additional environmental context for its recommendations.
+
+## Key Features
+
+* Soil image classification using a MobileNetV2-based computer vision model
+* Classification of soil into Sandy, Clay, and Loamy categories
+* Crop recommendations based on soil characteristics
+* Integration with weather data through an external API
+* Soil and environmental analysis
+* Interactive Streamlit interface
+* Agricultural guidance and user challenges
+
+## System Workflow
+
+```text
+User
+  |
+  v
+Soil Image
+  |
+  v
+Image Preprocessing
+  |
+  v
+MobileNetV2 Model
+  |
+  v
+Soil Texture Classification
+  |
+  v
+Soil Analysis
+  |
+  +------------------+
+  |                  |
+  v                  v
+Soil Information   Weather Data
+  |                  |
+  +--------+---------+
+           |
+           v
+   Agricultural Analysis
+           |
+           v
+   Crop Recommendations
 ```
-GrowMate/
-├── prepare_data.py          # Step 1: process images + build crop DB
-├── train_model.py           # Step 2: train CNN model
-├── evaluate_model.py        # Step 3: generate report figures
-├── dataset_figures.py       # Step 3b: dataset analysis figures
-├── run.py                   # Launch script (recommended)
+
+## Machine Learning
+
+The soil classification model uses transfer learning with MobileNetV2.
+
+The model was trained using an augmented dataset containing 375 soil images across three soil texture classes:
+
+| Class | Description                             |
+| ----- | --------------------------------------- |
+| Sandy | Soil with a predominantly sandy texture |
+| Clay  | Soil with a predominantly clay texture  |
+| Loamy | Soil with a predominantly loamy texture |
+
+Transfer learning was selected to leverage a pretrained convolutional neural network while adapting the model to the soil classification task.
+
+## Technology Stack
+
+| Technology         | Purpose                                                 |
+| ------------------ | ------------------------------------------------------- |
+| Python             | Application and machine learning development            |
+| TensorFlow / Keras | Model development and inference                         |
+| MobileNetV2        | Transfer-learning architecture for image classification |
+| Streamlit          | Interactive application interface                       |
+| Pandas             | Data processing                                         |
+| NumPy              | Numerical computation                                   |
+| OpenWeatherMap API | Weather and environmental data                          |
+
+## Project Structure
+
+```text
+Growmate/
+├── app.py
 ├── requirements.txt
 ├── README.md
-│
-├── .streamlit/
-│   └── config.toml          # GrowMate green theme
-│
-├── data/
-│   ├── raw/Sandy/           ← put your Sandy images here
-│   ├── raw/Clay/            ← put your Clay images here
-│   ├── raw/Loamy/           ← put your Loamy images here
-│   ├── processed/           (auto-generated)
-│   ├── dataset_split.json   (auto-generated)
-│   └── growmate_crops.db    (auto-generated)
-│
-├── models/
-│   ├── growmate_model.h5    (auto-generated after training)
-│   └── class_labels.json   (auto-generated after training)
-│
-├── results/                 (all report figures saved here)
-│
-└── app/
-    ├── Home.py
-    ├── utils.py             # shared CSS + helpers
-    └── pages/
-        ├── 1_Soil_Analysis.py
-        ├── 2_Crop_Recommendation.py
-        ├── 3_Cultivation_Calendar.py
-        └── 4_About.py
+└── ...
 ```
 
----
+The repository structure may evolve as additional functionality and improvements are introduced.
 
-## Setup
+## Installation
 
-### 1. Install dependencies
+### Clone the repository
+
+```bash
+git clone https://github.com/uzochichinedu79-alt/Growmate.git
+cd Growmate
+```
+
+### Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+On Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+On macOS/Linux:
+
+```bash
+source .venv/bin/activate
+```
+
+### Install dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Get soil dataset
-https://www.kaggle.com/datasets/prasanshasatpathy/soil-types
+### Configure environment variables
 
-Put images into:
-- `data/raw/Sandy/`
-- `data/raw/Clay/`
-- `data/raw/Loamy/`
+If the application requires an API key, create a `.env` file or configure the required environment variables according to the application's configuration.
 
-Aim for 100-125 images per class.
+Do not commit API keys or other secrets to the repository.
 
-### 3. Get weather API key (free)
-https://openweathermap.org/api
-
-Open `app/pages/2_Crop_Recommendation.py` and replace:
-```python
-WEATHER_KEY = "YOUR_API_KEY_HERE"
-```
-
----
-
-## Run order
+### Run the application
 
 ```bash
-python prepare_data.py      # process images, build DB
-python train_model.py       # train model (15-40 mins)
-python evaluate_model.py    # generate report figures
-python dataset_figures.py   # generate dataset figures
-python run.py               # launch app
+streamlit run app.py
 ```
 
-App opens at: http://localhost:8501
+## Project Objectives
 
----
+GrowMate explores the use of machine learning and environmental data to support more accessible agricultural decision-making.
 
-## Performance targets
+The project focuses on:
 
-| Metric    | Target |
-|-----------|--------|
-| Accuracy  | >= 70% |
-| Precision | >= 65% |
-| Recall    | >= 65% |
-| F1-Score  | >= 65% |
+1. Applying computer vision to soil classification.
+2. Using transfer learning for a practical image classification problem.
+3. Combining machine learning outputs with external environmental data.
+4. Building an accessible interface for interacting with an ML application.
 
----
+## Future Improvements
 
-## Crop scoring formula (Equation 3.4)
+Potential areas for further development include:
 
-```
-S = 0.40 * Cs + 0.30 * Ct + 0.30 * Cr
-```
-Cs = soil compatibility, Ct = temperature suitability, Cr = rainfall suitability
+* Expanding the soil image dataset
+* Increasing the number of soil classes
+* Improving model performance with additional training data
+* Adding more agricultural and soil features
+* Expanding crop coverage
+* Improving crop recommendation logic
+* Adding automated model evaluation and monitoring
+* Deploying the application for broader use
 
----
+## Author
 
-*GrowMate v1.0 | Landmark University | "Know your soil. Grow your future."*
+**Uzochi Chinedu**
+
+AI Engineer | Computer Science
+
+[GitHub](https://github.com/uzochichinedu79-alt)
